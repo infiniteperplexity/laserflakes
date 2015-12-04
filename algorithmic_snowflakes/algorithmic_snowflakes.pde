@@ -1,11 +1,19 @@
+// maximum RGB value
+final int MAXCOLOR = 255;
+// degrees in a circle
+final int CIRCLE = 360;
+// how many branches do the snowflakes have?
+final int NBRANCHES = 6;
 // how big are the snowflakes, in pixels?
 int SIZE = 100;
 // how many levels of branches do our snowflakes have?
 int DEPTH = 3;
 // how thick do we draw the lines?
 int THICKNESS = 12;
+// these arrays hold the randomized parameters for the snowflakes
 float[] fractions = new float[DEPTH];
 int[] angles = new int[DEPTH];
+// this variable tracks how many snowflakes we have saved in this session
 int saves = 0;
 
 void setup() {
@@ -13,7 +21,7 @@ void setup() {
   stroke(0,0,0);
   pushMatrix();
   strokeWeight(THICKNESS);
-  fill(255,255,255);
+  fill(MAXCOLOR,MAXCOLOR,MAXCOLOR);
   snowflake();
 }
 //make a new snowflake with each mouse click, and save the old one
@@ -27,20 +35,22 @@ void mouseClicked() {
 //this function creates a snowflake
 void snowflake() {
   //set background color
-  background(255,255,255);
+  background(MAXCOLOR,MAXCOLOR,MAXCOLOR);
   //move the origin to the center of the canvas
-  translate(250,250);
+  translate(500/2,500/2);
   //rotate the canvas so the zero-direction is up
-  rotate(radians(-90));
+  rotate(radians(-CIRCLE/4));
   //generate three random branch positions and three random angles
-  for(int i = 0; i<DEPTH; i++) {
+  for(int i = 0; i<DEPTH; i++) {  
+    // branch off at halfway, plus or minus a quarter of the way
     fractions[i] = 0.5 + 0.25*(random(1) - random(1));
+    // branch off at 60 degrees, plus or minus 40 degrees
     angles[i] = int(60 + random(40) - random(40));
   }
   //six times, create a branch and then rotate the canvas 60 degrees
-  for(int i = 0; i<6; i++) {
+  for(int i = 0; i<NBRANCHES; i++) {
       branch(SIZE,0);
-      rotate(radians(60));
+      rotate(radians(CIRCLE/NBRANCHES));
   }
   //draw the eyelet at the top
   ellipse(0,0,0.25*SIZE,0.25*SIZE);
