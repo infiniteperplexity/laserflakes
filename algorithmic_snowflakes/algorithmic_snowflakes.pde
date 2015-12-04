@@ -1,7 +1,7 @@
 // how big are the snowflakes, in pixels?
 int SIZE = 100;
 // how many levels of branches do our snowflakes have?
-int DEPTH = 1;
+int DEPTH = 3;
 // how thick do we draw the lines?
 int THICKNESS = 12;
 float[] fractions = new float[DEPTH];
